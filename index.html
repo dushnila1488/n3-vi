@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom & Flora — Элитная флористика и доставка цветов</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Playfair Display & Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#FDF0ED',
+                            rose: '#E8A598',
+                            roseDark: '#D47A6A',
+                            green: '#EAF0EC',
+                            leaf: '#5B7065',
+                            ivory: '#FAF8F5',
+                            gold: '#D4AF37',
+                            charcoal: '#2C3531'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAF8F5;
+            color: #2C3531;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Glassmorphism effects */
+        .glass-nav {
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(232, 165, 152, 0.2);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E8A598;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-brand-ivory text-brand-charcoal antialiased flex flex-col min-h-screen selection:bg-brand-rose selection:text-white">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full z-40 glass-nav transition-all duration-300 border-b border-brand-rose/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-full bg-brand-rose/20 flex items-center justify-center text-brand-roseDark group-hover:bg-brand-rose group-hover:text-white transition-all duration-300">
+                    <i data-lucide="flower-2" class="w-6 h-6"></i>
+                </div>
+                <span class="font-serif text-2xl font-bold tracking-wide text-brand-charcoal">Bloom <span class="text-brand-roseDark">&</span> Flora</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#hero" class="hover:text-brand-roseDark transition-colors">Главная</a>
+                <a href="#catalog" class="hover:text-brand-roseDark transition-colors">Каталог</a>
+                <a href="#features" class="hover:text-brand-roseDark transition-colors">Преимущества</a>
+                <a href="#reviews" class="hover:text-brand-roseDark transition-colors">Отзывы</a>
+                <a href="#contacts" class="hover:text-brand-roseDark transition-colors">Контакты</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Cart Button -->
+                <button id="open-cart-btn" class="relative p-2.5 rounded-full bg-brand-pink text-brand-roseDark hover:bg-brand-rose hover:text-white transition-all duration-300 flex items-center justify-center shadow-sm">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-brand-roseDark text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-brand-charcoal hover:text-brand-roseDark focus:outline-none">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-ivory border-b border-brand-rose/20 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="block py-2 text-brand-charcoal hover:text-brand-roseDark font-medium">Главная</a>
+            <a href="#catalog" class="block py-2 text-brand-charcoal hover:text-brand-roseDark font-medium">Каталог</a>
+            <a href="#features" class="block py-2 text-brand-charcoal hover:text-brand-roseDark font-medium">Преимущества</a>
+            <a href="#reviews" class="block py-2 text-brand-charcoal hover:text-brand-roseDark font-medium">Отзывы</a>
+            <a href="#contacts" class="block py-2 text-brand-charcoal hover:text-brand-roseDark font-medium">Контакты</a>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-[88vh] flex items-center overflow-hidden bg-gradient-to-b from-brand-pink/50 to-brand-ivory">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                
+                <div class="space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-rose/15 text-brand-roseDark text-xs font-semibold uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        Свежие цветы каждый день
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-brand-charcoal">
+                        Искусство дарить <br><span class="italic text-brand-roseDark font-normal">живые эмоции</span>
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Создаем авторские букеты и цветочние композиции с бесплатной доставкой за 2 часа по всему городу. Подарите радость своим близким прямо сейчас.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#catalog" class="px-8 py-4 rounded-full bg-brand-roseDark text-white font-medium hover:bg-brand-rose transition-all duration-300 shadow-lg shadow-brand-roseDark/25 text-center flex items-center justify-center gap-2 group">
+                            Выбрать букет
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#features" class="px-8 py-4 rounded-full bg-white text-brand-charcoal font-medium border border-gray-200 hover:border-brand-rose hover:text-brand-roseDark transition-all duration-300 text-center">
+                            Узнать больше
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-gray-200/80 max-w-md mx-auto lg:mx-0">
+                        <div>
+                            <p class="font-serif text-2xl sm:text-3xl font-bold text-brand-charcoal">10k+</p>
+                            <p class="text-xs text-gray-500 mt-1">Довольных клиентов</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl sm:text-3xl font-bold text-brand-charcoal">2 часа</p>
+                            <p class="text-xs text-gray-500 mt-1">Среднее время доставки</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl sm:text-3xl font-bold text-brand-charcoal">100%</p>
+                            <p class="text-xs text-gray-500 mt-1">Свежие бутоны</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image Showcase -->
+                <div class="relative flex justify-center">
+                    <div class="relative w-full max-w-lg">
+                        <div class="absolute -top-4 -left-4 w-72 h-72 bg-brand-rose/20 rounded-full filter blur-3xl opacity-70"></div>
+                        <div class="absolute -bottom-4 -right-4 w-72 h-72 bg-brand-green/60 rounded-full filter blur-3xl opacity-70"></div>
+                        
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                            <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&q=80&w=1000" alt="Красивый букет цветов" class="w-full h-[480px] object-cover hover:scale-105 transition-transform duration-700">
+                        </div>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-2xl shadow-xl hidden sm:flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-brand-green flex items-center justify-center text-brand-leaf">
+                                <i data-lucide="gift" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Приятный бонус</p>
+                                <p class="text-sm font-semibold text-brand-charcoal">Открытка в подарок!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal">Почему выбирают нас</h2>
+                    <p class="text-gray-500 mt-3 text-sm sm:text-base">Мы заботимся о каждой детали, чтобы ваш подарок принес максимум искренней радости</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 hover:border-brand-rose/30 hover:shadow-xl transition-all duration-300 text-center group">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-pink text-brand-roseDark flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="flower" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Всегда свежие цветы</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Прямые поставки с лучших плантаций Голландии и Эквадора каждое утро.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 hover:border-brand-rose/30 hover:shadow-xl transition-all duration-300 text-center group">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-green text-brand-leaf flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="truck" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Быстрая доставка</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Привезем букет получателю в течение 2 часов или к точно указанному времени.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 hover:border-brand-rose/30 hover:shadow-xl transition-all duration-300 text-center group">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-pink text-brand-roseDark flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="camera" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Фото перед отправкой</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Отправим реальное фото собранного букета в WhatsApp или Telegram до передачи курьеру.</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 hover:border-brand-rose/30 hover:shadow-xl transition-all duration-300 text-center group">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-green text-brand-leaf flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="heart" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Открытка в подарок</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">К каждому заказу мы прилагаем фирменную открытку с вашим теплым пожеланием.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATALOG SECTION -->
+        <section id="catalog" class="py-20 bg-brand-ivory">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-roseDark uppercase tracking-widest">Наш ассортимент</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal mt-1">Каталог букетов</h2>
+                    </div>
+
+                    <!-- Categories Filter Tabs -->
+                    <div class="flex items-center gap-2 overflow-x-auto pt-6 md:pt-0 pb-2 scrollbar-none" id="category-filters">
+                        <button class="filter-btn active px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap bg-brand-roseDark text-white shadow-md" data-category="all">
+                            Все букеты
+                        </button>
+                        <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap bg-white text-gray-600 hover:bg-brand-pink hover:text-brand-roseDark" data-category="roses">
+                            Розы
+                        </button>
+                        <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap bg-white text-gray-600 hover:bg-brand-pink hover:text-brand-roseDark" data-category="peonies">
+                            Пионы
+                        </button>
+                        <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap bg-white text-gray-600 hover:bg-brand-pink hover:text-brand-roseDark" data-category="mono">
+                            Монобукеты
+                        </button>
+                        <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap bg-white text-gray-600 hover:bg-brand-pink hover:text-brand-roseDark" data-category="author">
+                            Авторские
+                        </button>
+                        <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all whitespace-nowrap bg-white text-gray-600 hover:bg-brand-pink hover:text-brand-roseDark" data-category="boxes">
+                            В коробках
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Product items dynamically rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS SECTION -->
+        <section id="reviews" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-semibold text-brand-roseDark uppercase tracking-widest">Отзывы</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal mt-1">Что говорят наши клиенты</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 flex flex-col justify-between relative">
+                        <div>
+                            <div class="flex text-amber-400 gap-1 mb-4">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-6">
+                                "Заказывал букет роз для жены на годовщину. Привезли ровно в назначенное время, цветы невероятно свежие и простояли почти две недели! Огромное спасибо за сервис!"
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Анна М." class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-semibold text-sm">Екатерина В.</h4>
+                                <p class="text-xs text-gray-400">Москва, 2 дня назад</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 flex flex-col justify-between relative">
+                        <div>
+                            <div class="flex text-amber-400 gap-1 mb-4">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-6">
+                                "Очень удобно, что высылают фото перед отправкой. Композиция в шляпной коробке превзошла все ожидания. Мама была в полном восторге!"
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" alt="Михаил С." class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-semibold text-sm">Александр М.</h4>
+                                <p class="text-xs text-gray-400">Санкт-Петербург, неделю назад</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="p-8 rounded-2xl bg-brand-ivory border border-gray-100 flex flex-col justify-between relative">
+                        <div>
+                            <div class="flex text-amber-400 gap-1 mb-4">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-6">
+                                "Самый лучший floral бутик! Стильная упаковка, вежливые курьеры и невероятный аромат цветов. Теперь заказываю цветы только у вас."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200" alt="Елена К." class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-semibold text-sm">София К.</h4>
+                                <p class="text-xs text-gray-400">Казань, 2 недели назад</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA NEWSLETTER SECTION -->
+        <section class="py-16 bg-brand-pink/60 border-y border-brand-rose/20">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <i data-lucide="mail" class="w-10 h-10 text-brand-roseDark mx-auto mb-4"></i>
+                <h2 class="font-serif text-3xl font-bold text-brand-charcoal mb-2">Скидка 10% на первый заказ</h2>
+                <p class="text-gray-600 mb-6 text-sm sm:text-base">Подпишитесь на нашу рассылку и получайте закрытые спецпредложения и секретные промокоды</p>
+                <form id="subscribe-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" placeholder="Ваш e-mail..." required class="px-5 py-3.5 rounded-full flex-grow bg-white border border-gray-200 focus:outline-none focus:border-brand-roseDark text-sm">
+                    <button type="submit" class="px-7 py-3.5 rounded-full bg-brand-roseDark text-white font-medium hover:bg-brand-rose transition-all duration-300 text-sm whitespace-nowrap">
+                        Подписаться
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contacts" class="bg-brand-charcoal text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-gray-700">
+                <!-- Col 1 -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-brand-rose flex items-center justify-center text-white">
+                            <i data-lucide="flower-2" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold tracking-wide">Bloom & Flora</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Авторская флористика, стильные букеты и композиции с любовью и вниманием к каждой детали.
+                    </p>
+                    <div class="flex gap-4 text-gray-400">
+                        <a href="#" class="hover:text-brand-rose transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="hover:text-brand-rose transition-colors"><i data-lucide="send" class="w-5 h-5"></i></a>
+                        <a href="#" class="hover:text-brand-rose transition-colors"><i data-lucide="phone" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="font-serif text-lg font-semibold mb-4 text-brand-pink">Навигация</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-300">
+                        <li><a href="#hero" class="hover:text-brand-rose transition-colors">Главная</a></li>
+                        <li><a href="#catalog" class="hover:text-brand-rose transition-colors">Каталог цветов</a></li>
+                        <li><a href="#features" class="hover:text-brand-rose transition-colors">О сервисе</a></li>
+                        <li><a href="#reviews" class="hover:text-brand-rose transition-colors">Отзывы покупателей</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="font-serif text-lg font-semibold mb-4 text-brand-pink">Категории</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-300">
+                        <li><a href="#catalog" class="hover:text-brand-rose transition-colors">Монобукеты</a></li>
+                        <li><a href="#catalog" class="hover:text-brand-rose transition-colors">Авторские композиции</a></li>
+                        <li><a href="#catalog" class="hover:text-brand-rose transition-colors">Цветы в коробках</a></li>
+                        <li><a href="#catalog" class="hover:text-brand-rose transition-colors">Свадебные букеты</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="font-serif text-lg font-semibold mb-4 text-brand-pink">Контакты</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-brand-rose flex-shrink-0"></i>
+                            <span>г. Москва, ул. Цветочная, д. 12</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-brand-rose flex-shrink-0"></i>
+                            <span>+7 (495) 800-70-60</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="clock" class="w-4 h-4 text-brand-rose flex-shrink-0"></i>
+                            <span>Ежедневно с 08:00 до 22:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2026 Bloom & Flora. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART SLIDE-OVER DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" class="absolute inset-0 bg-black/40 transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col pointer-events-auto transform transition-transform duration-300 translate-x-full" id="cart-content">
+                <!-- Header -->
+                <div class="p-6 bg-brand-pink/50 border-b border-gray-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-roseDark"></i>
+                        <h3 class="font-serif text-xl font-bold text-brand-charcoal">Ваша корзина</h3>
+                    </div>
+                    <button id="close-cart-btn" class="p-2 text-gray-400 hover:text-brand-charcoal rounded-full">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Items List -->
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic Cart Content -->
+                </div>
+
+                <!-- Footer & Checkout Form -->
+                <div class="p-6 bg-brand-ivory border-t border-gray-100 space-y-4">
+                    <div class="flex justify-between items-center text-base font-medium">
+                        <span class="text-gray-600">Итого:</span>
+                        <span id="cart-total-price" class="font-serif text-2xl font-bold text-brand-roseDark">0 ₽</span>
+                    </div>
+
+                    <!-- Order Form -->
+                    <form id="checkout-form" class="space-y-3 pt-2">
+                        <input type="text" id="cust-name" placeholder="Ваше имя" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-roseDark">
+                        <input type="tel" id="cust-phone" placeholder="+7 (___) ___-__-__" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-roseDark">
+                        <input type="text" id="cust-address" placeholder="Адрес доставки" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-roseDark">
+                        
+                        <button type="submit" id="checkout-btn" class="w-full py-3.5 rounded-xl bg-brand-roseDark text-white font-medium hover:bg-brand-rose transition-all duration-300 text-sm shadow-md flex items-center justify-center gap-2">
+                            <span>Оформить заказ</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-4 shadow-2xl transform scale-95 transition-transform duration-300" id="success-modal-card">
+            <div class="w-16 h-16 rounded-full bg-brand-green text-brand-leaf flex items-center justify-center mx-auto">
+                <i data-lucide="check" class="w-8 h-8"></i>
+            </div>
+            <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Заказ успешно оформлен!</h3>
+            <p class="text-gray-500 text-sm">Наш флорист свяжется с вами в течение 5 минут для подтверждения деталей заказа.</p>
+            <button id="close-success-btn" class="w-full py-3 rounded-xl bg-brand-roseDark text-white font-medium hover:bg-brand-rose transition-colors text-sm">
+                Отлично
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- PRODUCTS DATA ---
+        const products = [
+            {
+                id: 1,
+                name: "Букет 'Нежный Рассвет'",
+                category: "peonies",
+                price: 4900,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=800",
+                desc: "Пионы, пионовидные розы, эвкалипт. Нежное сочетание пастельных оттенков."
+            },
+            {
+                id: 2,
+                name: "Розы 'Королевский Бархат'",
+                category: "roses",
+                price: 6500,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=800",
+                desc: "Классический букет из 25 премиальных красных роз в элегантной упаковке."
+            },
+            {
+                id: 3,
+                name: "Композиция 'Весенняя Сказка'",
+                category: "boxes",
+                price: 5200,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&q=80&w=800",
+                desc: "Шляпная коробка с ранункулюсами, гортензией и сезонными зеленушками."
+            },
+            {
+                id: 4,
+                name: "Монобукет 'Белоснежные Лилии'",
+                category: "mono",
+                price: 3800,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1508610048659-a06b669e3321?auto=format&fit=crop&q=80&w=800",
+                desc: "Утонченный изысканный букет из королевских белоснежных лилий."
+            },
+            {
+                id: 5,
+                name: "Авторский букет 'Элегия'",
+                category: "author",
+                price: 7900,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&q=80&w=800",
+                desc: "Эксклюзивный состав: гортензии, пионы, оксипеталум и сухоцветы."
+            },
+            {
+                id: 6,
+                name: "Пионы 'Пудровый Закат'",
+                category: "peonies",
+                price: 5900,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&q=80&w=800",
+                desc: "11 пышных розовато-пудровых пионов сорта Сара Бернар."
+            }
+        ];
+
+        // --- STATE MANAGEMENT ---
+        let cart = [];
+
+        // --- DOM ELEMENTS ---
+        const productsGrid = document.getElementById('products-grid');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartContent = document.getElementById('cart-content');
+        const cartBackdrop = document.getElementById('cart-backdrop');
+        const openCartBtn = document.getElementById('open-cart-btn');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalPriceEl = document.getElementById('cart-total-price');
+        const checkoutForm = document.getElementById('checkout-form');
+        const successModal = document.getElementById('success-modal');
+        const successModalCard = document.getElementById('success-modal-card');
+        const closeSuccessBtn = document.getElementById('close-success-btn');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // --- RENDER PRODUCTS ---
+        function renderProducts(filterCategory = 'all') {
+            productsGrid.innerHTML = '';
+            
+            const filteredProducts = filterCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === filterCategory);
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col group';
+                
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[4/3]">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-xs font-semibold text-brand-charcoal flex items-center gap-1 shadow-sm">
+                            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-current"></i>
+                            ${product.rating}
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-brand-charcoal group-hover:text-brand-roseDark transition-colors">${product.name}</h3>
+                            <p class="text-gray-500 text-xs mt-2 line-clamp-2">${product.desc}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                            <span class="font-serif text-2xl font-bold text-brand-charcoal">${product.price.toLocaleString('ru-RU')} ₽</span>
+                            <button onclick="addToCart(${product.id})" class="px-4 py-2.5 rounded-full bg-brand-pink text-brand-roseDark hover:bg-brand-roseDark hover:text-white transition-all duration-300 text-sm font-medium flex items-center gap-2">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                В корзину
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // --- CART FUNCTIONS ---
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function updateCartUI() {
+            // Update badge count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            // Update items list
+            cartItemsContainer.innerHTML = '';
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-400 space-y-3">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto stroke-1"></i>
+                        <p class="text-sm">Ваша корзина пуста</p>
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex items-center gap-4 p-3 rounded-2xl bg-brand-ivory border border-gray-100';
+                    itemEl.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover">
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-sm font-semibold text-brand-charcoal truncate">${item.name}</h4>
+                            <p class="text-xs text-brand-roseDark font-bold mt-1">${(item.price * item.quantity).toLocaleString('ru-RU')} ₽</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center text-xs font-bold hover:border-brand-rose">-</button>
+                                <span class="text-xs font-medium">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center text-xs font-bold hover:border-brand-rose">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+            }
+
+            // Update total price
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalPriceEl.innerText = `${totalPrice.toLocaleString('ru-RU')} ₽`;
+
+            lucide.createIcons();
+        }
+
+        function toggleCart(open) {
+            if (open) {
+                cartDrawer.classList.remove('pointer-events-none', 'opacity-0');
+                cartContent.classList.remove('translate-x-full');
+            } else {
+                cartDrawer.classList.add('pointer-events-none', 'opacity-0');
+                cartContent.classList.add('translate-x-full');
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        // Open/Close Cart
+        openCartBtn.addEventListener('click', () => toggleCart(true));
+        closeCartBtn.addEventListener('click', () => toggleCart(false));
+        cartBackdrop.addEventListener('click', () => toggleCart(false));
+
+        // Filter Categories
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-roseDark', 'text-white', 'shadow-md');
+                    b.classList.add('bg-white', 'text-gray-600');
+                });
+                btn.classList.remove('bg-white', 'text-gray-600');
+                btn.classList.add('bg-brand-roseDark', 'text-white', 'shadow-md');
+
+                const category = btn.getAttribute('data-category');
+                renderProducts(category);
+            });
+        });
+
+        // Checkout Form Submit
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert('Ваша корзина пуста!');
+                return;
+            }
+
+            // Clear Cart & Close Drawer
+            cart = [];
+            updateCartUI();
+            toggleCart(false);
+            checkoutForm.reset();
+
+            // Show Success Modal
+            successModal.classList.remove('pointer-events-none', 'opacity-0');
+            successModalCard.classList.remove('scale-95');
+            successModalCard.classList.add('scale-100');
+        });
+
+        // Close Success Modal
+        closeSuccessBtn.addEventListener('click', () => {
+            successModal.classList.add('pointer-events-none', 'opacity-0');
+            successModalCard.classList.remove('scale-100');
+            successModalCard.classList.add('scale-95');
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Newsletter Form
+        document.getElementById('subscribe-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Спасибо за подписку! Промокод отправлен на ваш e-mail.');
+            e.target.reset();
+        });
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
